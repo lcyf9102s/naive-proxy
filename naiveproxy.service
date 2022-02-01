@@ -1,0 +1,14 @@
+[Unit] 
+Description=naiveproxy 
+After=network.target nss-lookup.target 
+Wants=network-online.target systemd-networkd-wait-online.service
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/caddy run --config=/etc/caddy/Caddyfile
+Restart=on-abnormal
+Environment=CADDYPATH=/root/naiveproxy
+
+[Install]
+WantedBy=multi-user.target
